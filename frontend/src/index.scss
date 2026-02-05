@@ -1,0 +1,431 @@
+@use 'sass:color';
+
+$background-color: #fafafa;
+$white: #ffffff;
+$primary-color: #323232;
+$secondary-color: #646464;
+$tertiary-color: #969696;
+$accent-color: #ff9f24;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 0.25rem 0.925rem rgba(0, 0, 0, 0.08);
+}
+
+@mixin button {
+  display: flex;
+  background: $white;
+  border: none;
+  border-radius: 0.75rem;
+  color: $primary-color;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@mixin header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes pulse-animation {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $background-color;
+  color: $primary-color;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.layout {
+  &__container {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+    &--product-detail {
+      padding: 2.5rem 0 0 0;
+    }
+  }
+}
+
+.header {
+  @include header;
+
+  &__menu-btn {
+    @include button;
+  }
+
+  &__profile-pic {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.welcome {
+  margin-bottom: 0.9375rem;
+
+  &__greeting {
+    font-size: 1rem;
+    color: $secondary-color;
+    margin-bottom: 0.3125rem;
+    font-weight: 400;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $primary-color;
+  }
+}
+
+.products {
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1.0625rem;
+    color: $primary-color;
+  }
+
+  &__empty {
+    text-align: start;
+    color: $tertiary-color;
+    padding: 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.product-card {
+  background: $white;
+  border-radius: 0.75rem;
+  padding: 1rem 1rem 0.5rem;
+  @include card-shadow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.3125rem;
+    text-align: center;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__image {
+    width: 7.625rem;
+    height: 7.625rem;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+    mix-blend-mode: multiply;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: $secondary-color;
+  }
+
+  &__price-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  &__price {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  &__skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    min-height: 21.5rem;
+    background: color.adjust($background-color, $lightness: -10%);
+    animation: pulse-animation 1.5s ease-in-out infinite;
+    border-radius: 0.75rem;
+  }
+
+  &__more-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: $accent-color;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem 0rem;
+    @include flex-center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: color.adjust($accent-color, $lightness: -10%);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+.product-detail {
+  &__header {
+    @include header;
+    padding: 0 1.5rem;
+    &__back-btn {
+      @include button;
+    }
+    &__menu-btn {
+      @include button;
+    }
+    &__title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: $primary-color;
+    }
+  }
+  &__image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem 1.25rem;
+    min-height: 18.75rem;
+  }
+  &__image {
+    width: 100%;
+    max-width: 12.5rem;
+    max-height: 15rem;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  &__content {
+    padding: 2.8125rem 1.625rem 1.625rem;
+    background-color: $white;
+    border-radius: 3rem;
+  }
+  &__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+    text-align: center;
+    min-height: calc(100vh - 5rem);
+    gap: 1rem;
+    &__title {
+      font-size: 1.5rem;
+    }
+    &__reason {
+      font-size: 1rem;
+      color: $tertiary-color;
+    }
+  }
+  &__info {
+    margin-bottom: 1.8125rem;
+  }
+  &__name-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  &__name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin: 0;
+  }
+  &__price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $accent-color;
+  }
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    color: $tertiary-color;
+    font-size: 0.875rem;
+  }
+  &__description {
+    margin-bottom: 1.375rem;
+    font-size: 1rem;
+  }
+  &__description-title {
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+  }
+  &__description-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: $tertiary-color;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    &.is-expanded {
+      -webkit-line-clamp: unset;
+      line-clamp: unset;
+      overflow: visible;
+    }
+  }
+  &__read-more {
+    color: $accent-color;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: $white;
+    border: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__size-section {
+    margin-bottom: 1.875rem;
+  }
+  &__size-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: 0.8125rem;
+  }
+  &__sku-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  &__sku-btn {
+    padding: 0.4375rem 0.9375rem;
+    border: 1px solid $tertiary-color;
+    background: $white;
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
+    color: $tertiary-color;
+    cursor: pointer;
+    font-weight: 500;
+
+    &--active {
+      border-color: $accent-color;
+      color: $accent-color;
+      background: color.adjust($accent-color, $lightness: 45%);
+    }
+  }
+  &__actions {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+  }
+  &__save-btn {
+    width: 3.75rem;
+    height: 3.75rem;
+    border: 1px solid $accent-color;
+    background: $white;
+    border-radius: 0.75rem;
+    @include flex-center;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 0.25rem 0.75rem rgba($accent-color, 0.3);
+    }
+  }
+  &__add-to-cart-btn {
+    flex: 1;
+    height: 3.75rem;
+    background: $accent-color;
+    border: none;
+    border-radius: 0.75rem;
+    color: $white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+      background: color.adjust($accent-color, $lightness: -8%);
+      box-shadow: 0 0.25rem 0.75rem rgba($accent-color, 0.3);
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .product-card:nth-child(2n + 1) {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 0.725rem;
+  }
+  .product-card:nth-child(2n) {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .layout {
+    &__container {
+      max-width: 37.5rem;
+    }
+  }
+
+  .products {
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    /* Left */
+    .product-card:nth-child(3n + 1) {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    /* Middle */
+    .product-card:nth-child(3n + 2) {
+      border-radius: 0.75rem;
+    }
+
+    /* Right */
+    .product-card:nth-child(3n) {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+  }
+}
